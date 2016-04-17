@@ -22,21 +22,23 @@ public class AudioService {
 	private  final String FIM = ", localizado. Deseja ouvir mais?";
 	
 			
-	private WatsonService wSer;
-	public AudioService(WatsonService wSer)
+	
+	public AudioService()
 	{
-		this.wSer = wSer;
+		
 	}
 	
-	
+	//Sintetiza audio representativo da frase 
+	// Código braille 2.0 sobre __categoria___, localizado. Deseja ouvir mais?
 	public InputStream getCategoryAudio(String category)
 	{
 		Voice v = new Voice("pt-BR_IsabelaVoice","Brazilian Portuguese","Female");
-		InputStream in = wSer.getTextToSpeech().synthesize(BASE+category+FIM,v , HttpMediaType.AUDIO_FLAC);
+		InputStream in = WatsonService.getTextToSpeech().synthesize(BASE+category+FIM,v , HttpMediaType.AUDIO_FLAC);
+		
 		/*
 		 * DEBUG
 		 * try {
-			Files.copy(in, Paths.get("output123123.wav"), StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(in, Paths.get("outputLocal.wav"), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,14 +46,15 @@ public class AudioService {
 		return in;
 	}
 
-
+	//Reconhece a resposta Sim ou Não após detecção de QRCode
 	public Answer getResponseText(File file) {
-		//File audio = new File("src/test/resources/speech_to_text/sample1.wav");
+		
 		RecognizeOptions re = new RecognizeOptions();
 		re.model("pt-BR_BroadbandModel");
 		re.contentType("audio/wav");
 		
-	    SpeechResults transcript = wSer.getSpeechToText().recognize(file,re);
+		//Chama serviços Watson
+	    SpeechResults transcript = WatsonService.getSpeechToText().recognize(file,re);
 
 	    
 	    for(Transcript t : transcript.getResults())
@@ -65,11 +68,12 @@ public class AudioService {
 		    		
 			    	if(st.toLowerCase().trim().equals("não") || st.toLowerCase().trim().equals("nao") )
 			    	{
-			    		System.out.println("NAO");
+			    		//System.out.println("NAO");
 			    		return Answer.NAO;
 			    	}
 			    	if(st.toLowerCase().trim().equals("sim") )
-			    	{System.out.println("SIM");
+			    	{
+			    		//System.out.println("SIM");
 			    		return Answer.SIM;
 			    	}
 	    		}
@@ -80,14 +84,16 @@ public class AudioService {
 		return Answer.NA;
 	}
 
-
+	/// Retorna o arquivo de audio de um documento	
 	public InputStream fetchDocument(Document doc) {
+		
 		Voice v = new Voice("pt-BR_IsabelaVoice","Brazilian Portuguese","Female");
-		InputStream in = wSer.getTextToSpeech().synthesize(doc.getContent(),v , HttpMediaType.AUDIO_FLAC);
+		
+		InputStream in = WatsonService.getTextToSpeech().synthesize(doc.getContent(),v , HttpMediaType.AUDIO_FLAC);
 		/*
 		 * DEBUG
 		 * try {
-			Files.copy(in, Paths.get("output123123.wav"), StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(in, Paths.get("outputLocal.wav"), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

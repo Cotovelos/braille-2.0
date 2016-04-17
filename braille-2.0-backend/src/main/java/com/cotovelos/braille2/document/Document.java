@@ -1,5 +1,10 @@
 package com.cotovelos.braille2.document;
 
+//MODELO
+// DOCUMENT
+// --CAMPOS:
+// --- ID - indentificador unico
+// --- Content - texto padrão
 
 public class Document {
 	private String _id = "example_id";

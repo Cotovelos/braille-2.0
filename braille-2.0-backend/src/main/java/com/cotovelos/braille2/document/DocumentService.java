@@ -3,6 +3,7 @@ package com.cotovelos.braille2.document;
 import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.cotovelos.braille2.document.cloudant.MyCloudantClient;
 
+// Serviço de comunicação com cloudant
 public class DocumentService {
 
 	private MyCloudantClient cloudantClient = new MyCloudantClient();

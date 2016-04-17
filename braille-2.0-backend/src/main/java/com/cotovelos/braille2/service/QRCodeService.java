@@ -15,6 +15,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
  
+//Classe de geração e interpretação
 public class QRCodeService {
 
 	private String myCodeText; // Ex: "(21)10\0(91)peixe\0(8200)http://google.com.br";

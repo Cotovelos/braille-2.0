@@ -8,6 +8,7 @@ import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
 import com.cotovelos.braille2.document.Document;
+// Cliente Cloudant
 
 public class MyCloudantClient {
 	
