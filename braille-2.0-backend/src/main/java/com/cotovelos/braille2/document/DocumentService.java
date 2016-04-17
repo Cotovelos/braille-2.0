@@ -1,5 +1,6 @@
 package com.cotovelos.braille2.document;
 
+import com.cloudant.client.org.lightcouch.NoDocumentException;
 import com.cotovelos.braille2.document.cloudant.MyCloudantClient;
 
 public class DocumentService {
@@ -12,9 +13,14 @@ public class DocumentService {
 	}
 	
 	public Document getDocument(String path) {
-		Document doc = cloudantClient.find(path);
-		System.out.println(doc);
-
-		return doc;
+		try {
+		
+			Document doc = cloudantClient.find(path);
+			System.out.println(doc);
+			return doc;
+			
+		} catch (NoDocumentException nde) {
+			return null;
+		}
 	}
 }
