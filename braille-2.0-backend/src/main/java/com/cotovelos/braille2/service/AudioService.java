@@ -2,7 +2,9 @@ package com.cotovelos.braille2.service;
 
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechAlternative;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 
 import java.io.File;
@@ -51,12 +53,26 @@ public class AudioService {
 	    SpeechResults transcript = wSer.getSpeechToText().recognize(file,re);
 
 	    
-	    for(String st : transcript.toString().split(" "))
+	    for(Transcript t : transcript.getResults())
 	    {
-	    	if(st.toLowerCase().trim().equals("não") || st.toLowerCase().trim().equals("nao") )
-	    		return Answer.NAO;
-	    	if(st.toLowerCase().trim().equals("sim") )
-	    		return Answer.SIM;
+	    	for(SpeechAlternative sp : t.getAlternatives())
+	    	{
+	    		
+	    		for(String st : sp.getTranscript().split(" "))
+	    		{
+	    		
+		    		
+			    	if(st.toLowerCase().trim().equals("não") || st.toLowerCase().trim().equals("nao") )
+			    	{
+			    		System.out.println("NAO");
+			    		return Answer.NAO;
+			    	}
+			    	if(st.toLowerCase().trim().equals("sim") )
+			    	{System.out.println("SIM");
+			    		return Answer.SIM;
+			    	}
+	    		}
+	    	}
 	    	
 	    }
 	   
