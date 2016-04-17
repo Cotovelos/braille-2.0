@@ -1,0 +1,34 @@
+{
+  "cloudantNoSQLDB" : [ {
+    "name" : "Cloudant NoSQL DB-49",
+    "label" : "cloudantNoSQLDB",
+    "plan" : "Shared",
+    "credentials" : {
+      "username" : "0a7b8d1b-49ef-406c-884e-e564c0c2431b-bluemix",
+      "password" : "e10b2d450a4b0067abf613164d44c7276d7b27d0e165804bc0b64f45f57fe40e",
+      "host" : "0a7b8d1b-49ef-406c-884e-e564c0c2431b-bluemix.cloudant.com",
+      "port" : 443,
+      "url" : "https://0a7b8d1b-49ef-406c-884e-e564c0c2431b-bluemix:e10b2d450a4b0067abf613164d44c7276d7b27d0e165804bc0b64f45f57fe40e@0a7b8d1b-49ef-406c-884e-e564c0c2431b-bluemix.cloudant.com"
+    }
+  } ],
+  "speech_to_text" : [ {
+    "name" : "Speech To Text",
+    "label" : "speech_to_text",
+    "plan" : "standard",
+    "credentials" : {
+      "url" : "https://stream.watsonplatform.net/speech-to-text/api",
+      "password" : "blBoUPTmG5UR",
+      "username" : "2a136d08-6dce-4b28-8ca3-0110edc63979"
+    }
+  } ],
+  "text_to_speech" : [ {
+    "name" : "Text to Speech",
+    "label" : "text_to_speech",
+    "plan" : "standard",
+    "credentials" : {
+      "url" : "https://stream.watsonplatform.net/text-to-speech/api",
+      "password" : "Vhgfda2JmSUw",
+      "username" : "1a2ff291-a095-40e8-b705-164ded9731d2"
+    }
+  } ]
+}
