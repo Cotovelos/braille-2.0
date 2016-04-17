@@ -14,17 +14,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.apache.commons.io.IOUtils;
 
 import com.cotovelos.braille2.business.Answer;
 import com.cotovelos.braille2.service.*;
 
-import it.sauronsoftware.jave.AudioAttributes;
-import it.sauronsoftware.jave.Encoder;
-import it.sauronsoftware.jave.EncoderException;
-import it.sauronsoftware.jave.EncodingAttributes;
-import it.sauronsoftware.jave.InputFormatException;
 @WebServlet("/audio/response")
 @MultipartConfig
 public class AudioResponseServlet extends HttpServlet {
@@ -40,33 +40,30 @@ public class AudioResponseServlet extends HttpServlet {
     	
     	System.out.println(getFileName(filePart));
     	
-		File gppfile = new File(getClass().getClassLoader().getResource("/audio/temp.wav").getFile());
-		OutputStream outputStream = new FileOutputStream(gppfile);
-		IOUtils.copy(filePart.getInputStream(), outputStream);
-		outputStream.close();
+//		File gppfile = new File(getClass().getClassLoader().getResource("/audio/temp.wav").getFile());
+//		OutputStream outputStream = new FileOutputStream(gppfile);
+//		IOUtils.copy(filePart.getInputStream(), outputStream);
+//		outputStream.close();
     	
-    	
-		File target = new File("/audio/temp.wav");
-		AudioAttributes audio = new AudioAttributes();
-		EncodingAttributes attrs = new EncodingAttributes();
-		attrs.setFormat("wav");
-		Encoder encoder = new Encoder();
+//		AudioInputStream inFileWav;
+//		AudioInputStream inFile3gpp = 
+//		    AudioSystem.getAudioInputStream(filePart.getInputStream());
+//		inFileWav = AudioSystem.getAudioInputStrea
+//		      (AudioFormat.Type.WAVE, inFile3gpp);
+//		
+    	File wavfile = new File(getClass().getClassLoader().getResource("/audio/temp.wav").getFile());
 		try {
-			encoder.encode(gppfile, target, attrs);
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InputFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (EncoderException e) {
+			AudioSystem.write(AudioSystem.getAudioInputStream(filePart.getInputStream()), AudioFileFormat.Type.WAVE, 
+					wavfile);
+		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		
+    	
+    	
         AudioService aSer = new AudioService(wSer);
-        Answer ans = aSer.getResponseText(target);
+        Answer ans = aSer.getResponseText(wavfile);
         
         OutputStream out = response.getOutputStream();
         if(Answer.NAO.equals(ans)){
