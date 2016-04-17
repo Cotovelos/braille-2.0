@@ -35,22 +35,16 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
 		
-		cordova.plugins.barcodeScanner.scan(
-      function (result) {
-          alert("We got a barcode\n" +
-                "Result: " + result.text + "\n" +
-                "Format: " + result.format + "\n" +
-                "Cancelled: " + result.cancelled);
-			//successCallback.apply();
-			var media = new Media("http://braille2.mybluemix.net/audio/category?category=cardapio");
-			media.play();
-      }, 
-      function (error) {
-          alert("Scanning failed: " + error);
-		  var media = new Media("http://braille2.mybluemix.net/audio/category?category=cardapio");
-			media.play();
-      }
-   );
+			
+
+		
+		ScanBarCode(function(qrText){
+			tellCategory(qrText, recordAnswer)
+		},
+		function(){
+			
+		});
+				
 		
     },
     // Update DOM on a Received Event
@@ -69,19 +63,48 @@ var app = {
 app.initialize();
 
 
-//function core() {
-		
-	//scanBareCode();
-	
-	//Call /audio/category
-	
+
+function ScanBarCode(successCallback, errorCallback) {
+	cordova.plugins.barcodeScanner.scan(
+      function (result) {
+          /*alert("We got a barcode\n" +
+                "Result: " + result.text + "\n" +
+                "Format: " + result.format + "\n" +
+                "Cancelled: " + result.cancelled);*/
+			console.log(result);
+			getCategoryFromQr(result.text);
+			successCallback.call(this, result.text);
+      }, 
+      function (error) {
+          alert("Scanning failed: " + error);
+		  errorCallback.call(this);	
+      }
+   );
+}
+
+function tellCategory(qrText, successCallback, errorCallback) {
+	var media = new Media("http://braille2.mybluemix.net/audio/category?category="+"cardapio", 
+		function(){successCallback.call(this, qrText)}, 
+		errorCallback);
+	media.play();
+}
+
+function tellContent(qrText, successCallback, errorCallback) {
+	var media = new Media("http://braille2.mybluemix.net/audio/info?resource="+"/cardapio", successCallback, errorCallback);
+	media.play();
+}
+
+function recordAnswer(qrText) {
 	// capture callback
-		/*var captureSuccess = function(mediaFiles) {
+	
+		var captureSuccess = function(mediaFiles) {
 		var i, path, len;
 		for (i = 0, len = mediaFiles.length; i < len; i += 1) {
 			path = mediaFiles[i].fullPath;
-			// do something interesting with the file
+			console.log(mediaFiles[i]);
+			uploadFile(mediaFiles[i]);
 		}
+		tellContent();
 		};
 
 		// capture error callback
@@ -90,12 +113,31 @@ app.initialize();
 		};
 
 		// start audio capture
-		navigator.device.capture.captureAudio(captureSuccess, captureError, {limit:2});*/
-	
-//}
+		navigator.device.capture.captureAudio(captureSuccess, captureError, {limit:1});
+}
 
-//function scanBareCode(successCallback) {
-		
-		
+function recSuc(data)
+{
 	
-//}
+}
+
+function uploadFile(mediaFile) {
+	var ft = new FileTransfer(),
+		path = mediaFile.fullPath,
+		name = mediaFile.name;
+
+	ft.upload(path,
+		"http://braille2.mybluemix.net/audio/response",
+		function(result) {
+			console.log('Upload success: ' + result);
+		},
+		function(error) {
+			console.log('Error uploading file ' + path + ': ' + error.code);
+		},
+		{ fileName: name });
+}
+	
+function getCategoryFromQr(qrText){
+	
+	console.log(qrText.split("@#"));
+}

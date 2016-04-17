@@ -51,8 +51,13 @@ public class AudioService {
 		re.model("pt-BR_BroadbandModel");
 		re.contentType("audio/wav");
 		
+		System.out.println("Before transcript");
 	    SpeechResults transcript = wSer.getSpeechToText().recognize(file,re);
 
+	    
+	    System.out.println("transcript");
+	    System.out.println(transcript.toString());
+	    
 	    
 	    for(Transcript t : transcript.getResults())
 	    {
