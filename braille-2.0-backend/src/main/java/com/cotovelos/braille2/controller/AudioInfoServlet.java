@@ -3,6 +3,7 @@ package com.cotovelos.braille2.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.servlet.ServletException;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cotovelos.braille2.document.Document;
 import com.cotovelos.braille2.document.DocumentService;
-
+import com.cotovelos.braille2.service.*;
 @WebServlet("/audio/info")
 public class AudioInfoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -30,16 +31,20 @@ public class AudioInfoServlet extends HttpServlet {
     	
     	Document document = documentService.getDocument(resource);
     	
+    	
+    	WatsonService wSer = new WatsonService();
+    	AudioService aSer = new AudioService(wSer);
+    	
     	//Content should be sended to watson service
-    	String content = document.getContent();
+    	
     	
 		response.setHeader("Content-disposition","attachment; filename=teste.wav");
         
     	ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("/audio/teste.wav").getFile());
+        //File file = new File(classLoader.getResource("/audio/teste.wav").getFile());
         
         OutputStream out = response.getOutputStream();
-        FileInputStream in = new FileInputStream(file);
+        InputStream in = aSer.fetchDocument(document).getIn();
         byte[] buffer = new byte[4096];
         int length;
         while ((length = in.read(buffer)) > 0){

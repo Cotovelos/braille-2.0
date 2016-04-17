@@ -1,8 +1,10 @@
 package com.cotovelos.braille2.controller;
 
+import com.cotovelos.braille2.service.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.servlet.ServletException;
@@ -21,15 +23,20 @@ public class AudioCategoryServlet extends HttpServlet {
     	response.setContentType("text/html");
     	
     	//Category received via ajax from QR CODE
-    	request.getParameter("category");
+    	String cat = request.getParameter("category");
     	
     	response.setHeader("Content-disposition","attachment; filename=teste.wav");
         
     	ClassLoader classLoader = getClass().getClassLoader();
+    	
+    	WatsonService wSer = new WatsonService();
+    	AudioService aSer = new AudioService(wSer);
+    	
+    	
         File file = new File(classLoader.getResource("/audio/teste.wav").getFile());
         
         OutputStream out = response.getOutputStream();
-        FileInputStream in = new FileInputStream(file);
+        InputStream in = aSer.getCategoryAudio(cat).getIn();
         byte[] buffer = new byte[4096];
         int length;
         while ((length = in.read(buffer)) > 0){
