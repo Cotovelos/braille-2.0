@@ -11,6 +11,47 @@ xhrGet("SimpleServlet", function(responseText){
 	console.log(err);
 });
 
+function getAudioResponse(){
+    
+	var url = "audio/response";
+    
+    $.ajax({
+          url: url,
+          type: 'POST',
+          success: function(data){
+              if (data == "FAIL") {
+                  alert("File not found!");
+              } else {
+                  data; // Audio file
+              }
+          },
+          error: function (request, status, error) {
+              alert("The request failed: " + request.responseText);
+          }
+    });
+}
+
+function getAudioCategory(){
+    
+	//Change categoryName to the category name received from QR CODE
+	var url = "audio/category?category=categoryName";
+    
+    $.ajax({
+          url: url,
+          type: 'GET',
+          success: function(data){
+              if (data == "FAIL") {
+                  alert("File not found!");
+              } else {
+                  data; // Audio file
+              }
+          },
+          error: function (request, status, error) {
+              alert("The request failed: " + request.responseText);
+          }
+    });
+}
+
 //utilities
 function createXHR(){
 	if(typeof XMLHttpRequest != 'undefined'){
