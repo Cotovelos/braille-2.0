@@ -27,7 +27,7 @@ public class WatsonService {
 		 s2t.setApiKey(CredentialUtils.getAPIKey("speech_to_text"));
 		 t2s.setApiKey(CredentialUtils.getAPIKey("text_to_speech"));
 		 s2t.setUsernameAndPassword("2a136d08-6dce-4b28-8ca3-0110edc63979", "blBoUPTmG5UR");
-		 //t2s.setUsernameAndPassword("1a2ff291-a095-40e8-b705-164ded9731d2", "Vhgfda2JmSUw");
+		 t2s.setUsernameAndPassword("1a2ff291-a095-40e8-b705-164ded9731d2", "Vhgfda2JmSUw");
 		 
 	}
 	
