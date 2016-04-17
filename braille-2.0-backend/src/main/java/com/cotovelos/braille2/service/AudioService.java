@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import com.cotovelos.braille2.document.*;
 
 import com.cotovelos.braille2.business.*;
 public class AudioService {
@@ -77,6 +78,22 @@ public class AudioService {
 	    }
 	   
 		return Answer.NA;
+	}
+
+
+	public AudioFile fetchDocument(Document doc) {
+		Voice v = new Voice("pt-BR_IsabelaVoice","Brazilian Portuguese","Female");
+		InputStream in = wSer.getTextToSpeech().synthesize(doc.getContent(),v , HttpMediaType.AUDIO_WAV);
+		/*
+		 * DEBUG
+		 * try {
+			Files.copy(in, Paths.get("output123123.wav"), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		return new AudioFile(in);
+		
 	}
 	
 }
