@@ -67,6 +67,27 @@ module.exports = [
         "runs": true
     },
     {
+        "file": "plugins/cordova-plugin-media/www/MediaError.js",
+        "id": "cordova-plugin-media.MediaError",
+        "clobbers": [
+            "window.MediaError"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media/www/Media.js",
+        "id": "cordova-plugin-media.Media",
+        "clobbers": [
+            "window.Media"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media/www/browser/Media.js",
+        "id": "cordova-plugin-media.BrowserMedia",
+        "clobbers": [
+            "window.Media"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
         "id": "cordova-plugin-file.DirectoryEntry",
         "clobbers": [
@@ -229,6 +250,7 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.2.1",
     "phonegap-plugin-barcodescanner": "4.1.0",
     "cordova-plugin-media-capture": "1.2.0",
+    "cordova-plugin-media": "2.2.0",
     "cordova-plugin-file": "4.1.1"
 }
 // BOTTOM OF METADATA

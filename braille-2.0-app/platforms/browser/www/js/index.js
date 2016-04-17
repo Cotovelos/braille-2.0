@@ -34,6 +34,24 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+		
+		cordova.plugins.barcodeScanner.scan(
+      function (result) {
+          alert("We got a barcode\n" +
+                "Result: " + result.text + "\n" +
+                "Format: " + result.format + "\n" +
+                "Cancelled: " + result.cancelled);
+			//successCallback.apply();
+			var media = new Media("http://braille2.mybluemix.net/audio/category?category=cardapio");
+			media.play();
+      }, 
+      function (error) {
+          alert("Scanning failed: " + error);
+		  var media = new Media("http://braille2.mybluemix.net/audio/category?category=cardapio");
+			media.play();
+      }
+   );
+		
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -49,3 +67,35 @@ var app = {
 };
 
 app.initialize();
+
+
+//function core() {
+		
+	//scanBareCode();
+	
+	//Call /audio/category
+	
+	// capture callback
+		/*var captureSuccess = function(mediaFiles) {
+		var i, path, len;
+		for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+			path = mediaFiles[i].fullPath;
+			// do something interesting with the file
+		}
+		};
+
+		// capture error callback
+		var captureError = function(error) {
+		navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+		};
+
+		// start audio capture
+		navigator.device.capture.captureAudio(captureSuccess, captureError, {limit:2});*/
+	
+//}
+
+//function scanBareCode(successCallback) {
+		
+		
+	
+//}

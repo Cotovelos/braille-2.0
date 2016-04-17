@@ -44,7 +44,7 @@ public class AudioInfoServlet extends HttpServlet {
         //File file = new File(classLoader.getResource("/audio/teste.wav").getFile());
         
         OutputStream out = response.getOutputStream();
-        InputStream in = aSer.fetchDocument(document).getIn();
+        InputStream in = aSer.fetchDocument(document);
         byte[] buffer = new byte[4096];
         int length;
         while ((length = in.read(buffer)) > 0){

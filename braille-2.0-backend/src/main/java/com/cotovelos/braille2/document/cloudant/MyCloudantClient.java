@@ -38,6 +38,17 @@ public class MyCloudantClient {
 		
 		//Get a Database instance to interact with, but don't create it if it doesn't already exist
 		this.db = client.database("braille2_db", true);
+		
+//		save(new Document("/cardapio", "Menu de carnes:\n"+
+//				"Opção 1, Contra filé. Acompanha arroz, feijão, batatas fritas e farofa. 15 reais.\n" +
+//				"Opção 2, Picanha. Acompanha arroz, feijão, batatas fritas e farofa. 20 reais.\n" +
+//				"Opção 3, Frango. Acompanha arroz, feijão, batatas fritas e farofa. 14 reais."));
+//		
+//		save(new Document("/onibus", "Linhas de ônibus que param neste ponto.\n" + 
+//				"Ônibus 004  E.M.T.U. - São Bernado do Campo  Parque alvarenga.\n" + 
+//				"Ônibus 431  E.M.T.U. - Jardim Las Palmas.\n" +
+//				"Ônibus 152  E.M.T.U. - São Bernado do Campo   ÁREA VERDE."));
+		
 	}
 	
 	public void save(Document doc){

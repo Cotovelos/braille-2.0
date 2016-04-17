@@ -29,10 +29,10 @@ public class AudioService {
 	}
 	
 	
-	public AudioFile getCategoryAudio(String category)
+	public InputStream getCategoryAudio(String category)
 	{
 		Voice v = new Voice("pt-BR_IsabelaVoice","Brazilian Portuguese","Female");
-		InputStream in = wSer.getTextToSpeech().synthesize(BASE+category+FIM,v , HttpMediaType.AUDIO_WAV);
+		InputStream in = wSer.getTextToSpeech().synthesize(BASE+category+FIM,v , HttpMediaType.AUDIO_FLAC);
 		/*
 		 * DEBUG
 		 * try {
@@ -41,7 +41,7 @@ public class AudioService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		return new AudioFile(in);
+		return in;
 	}
 
 
@@ -81,9 +81,9 @@ public class AudioService {
 	}
 
 
-	public AudioFile fetchDocument(Document doc) {
+	public InputStream fetchDocument(Document doc) {
 		Voice v = new Voice("pt-BR_IsabelaVoice","Brazilian Portuguese","Female");
-		InputStream in = wSer.getTextToSpeech().synthesize(doc.getContent(),v , HttpMediaType.AUDIO_WAV);
+		InputStream in = wSer.getTextToSpeech().synthesize(doc.getContent(),v , HttpMediaType.AUDIO_FLAC);
 		/*
 		 * DEBUG
 		 * try {
@@ -92,7 +92,7 @@ public class AudioService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		return new AudioFile(in);
+		return in;
 		
 	}
 	

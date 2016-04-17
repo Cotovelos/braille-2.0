@@ -26,6 +26,9 @@
         },
         "cordova-plugin-media-capture": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {

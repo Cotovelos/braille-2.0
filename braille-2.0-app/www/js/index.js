@@ -42,9 +42,13 @@ var app = {
                 "Format: " + result.format + "\n" +
                 "Cancelled: " + result.cancelled);
 			//successCallback.apply();
+			var media = new Media("http://braille2.mybluemix.net/audio/category?category=cardapio");
+			media.play();
       }, 
       function (error) {
           alert("Scanning failed: " + error);
+		  var media = new Media("http://braille2.mybluemix.net/audio/category?category=cardapio");
+			media.play();
       }
    );
 		

@@ -36,7 +36,8 @@ public class AudioCategoryServlet extends HttpServlet {
         File file = new File(classLoader.getResource("/audio/teste.wav").getFile());
         
         OutputStream out = response.getOutputStream();
-        InputStream in = aSer.getCategoryAudio(cat).getIn();
+        //FileInputStream in = new FileInputStream(file);
+        InputStream in = aSer.getCategoryAudio(cat);
         byte[] buffer = new byte[4096];
         int length;
         while ((length = in.read(buffer)) > 0){
@@ -44,6 +45,7 @@ public class AudioCategoryServlet extends HttpServlet {
         }
         in.close();
         out.flush();
+        
     }
     
 }
