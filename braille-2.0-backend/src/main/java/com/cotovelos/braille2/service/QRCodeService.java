@@ -15,6 +15,12 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
  
+/**
+ * Service which creates a QR code in the GS1 pattern (ID, Category, URL)
+ * 
+ * @author Charles.Vatin
+ *
+ */
 public class QRCodeService {
 
 	private String myCodeText; // Ex: "(21)10\0(91)peixe\0(8200)http://google.com.br";
@@ -30,6 +36,10 @@ public class QRCodeService {
 		this.size = size;
 	}
 
+	/**
+	 * Creates the QRCode
+	 * 
+	 */
 	public int GerarQRCode()
 	{		
 		File myFile = new File(this.filePath);
