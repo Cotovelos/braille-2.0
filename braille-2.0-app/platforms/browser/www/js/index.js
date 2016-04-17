@@ -72,7 +72,6 @@ function ScanBarCode(successCallback, errorCallback) {
                 "Format: " + result.format + "\n" +
                 "Cancelled: " + result.cancelled);*/
 			console.log(result);
-			getCategoryFromQr(result.text);
 			successCallback.call(this, result.text);
       }, 
       function (error) {
@@ -83,14 +82,16 @@ function ScanBarCode(successCallback, errorCallback) {
 }
 
 function tellCategory(qrText, successCallback, errorCallback) {
-	var media = new Media("http://braille2.mybluemix.net/audio/category?category="+"cardapio", 
+	var category = getCategoryFromQr(qrText);
+	var media = new Media("http://braille2.mybluemix.net/audio/category?category="+category, 
 		function(){successCallback.call(this, qrText)}, 
 		errorCallback);
 	media.play();
 }
 
 function tellContent(qrText, successCallback, errorCallback) {
-	var media = new Media("http://braille2.mybluemix.net/audio/info?resource="+"/cardapio", successCallback, errorCallback);
+	var url = getUrlFromQr(qrText);
+	var media = new Media(url, successCallback, errorCallback);
 	media.play();
 }
 
@@ -104,7 +105,7 @@ function recordAnswer(qrText) {
 			console.log(mediaFiles[i]);
 			uploadFile(mediaFiles[i]);
 		}
-		tellContent();
+		tellContent(qrText);
 		};
 
 		// capture error callback
@@ -138,6 +139,17 @@ function uploadFile(mediaFile) {
 }
 	
 function getCategoryFromQr(qrText){
-	
-	console.log(qrText.split("@#"));
+	var splits = qrText.split("@#");
+	if(splits.length > 1){
+		return splits[1].substring(4);
+	}
+}
+
+function getUrlFromQr(qrText){
+	var splits = qrText.split("@#");
+	if(splits.length > 2){
+		console.log(splits[2]);
+		console.log(splits[2].substring(6));
+		return splits[2].substring(6);
+	}
 }

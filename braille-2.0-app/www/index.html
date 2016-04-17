@@ -38,10 +38,15 @@
         <title>Braille 2.0</title>
     </head>
     <body>
-		<div class="app">
+        <div class="app">
+           
 			<h1><i class="fa fa-blind" aria-hidden="true"></i>Braille 2.0</h1>
-		</div>
-		<script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript" src="js/index.js"></script>
-	</body>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
 </html>
