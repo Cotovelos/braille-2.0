@@ -1,8 +1,14 @@
 package com.cotovelos.braille2.document;
 
-
+/**
+ * 
+ * @author Charles.Vatin
+ *
+ *	Pojo which represents a document in the database.
+ */
 public class Document {
-	private String _id = "example_id";
+	
+	private String _id;
 	private String _rev = null;
 	private String content;
 	
@@ -14,7 +20,6 @@ public class Document {
 	public String toString() {
 		return "{ path: " + _id + ",\ncontent: " + content + "\n}";
 	}
-
 	
 	public String getContent() {
 		return content;
