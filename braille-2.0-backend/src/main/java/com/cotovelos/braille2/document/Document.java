@@ -6,6 +6,7 @@ package com.cotovelos.braille2.document;
  *
  *	Pojo which represents a document in the database.
  */
+
 public class Document {
 	
 	private String _id;

@@ -14,7 +14,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import com.cotovelos.braille2.document.*;
-
+/**
+ * Class to acess Watson Audio Services
+ * 
+ * @param WatsonService
+ * 	
+ */
 import com.cotovelos.braille2.business.*;
 public class AudioService {
 
@@ -28,7 +33,12 @@ public class AudioService {
 		this.wSer = wSer;
 	}
 	
-	
+	/**
+	 * Method that receives a string representing the category
+	 * e returns an audio explanation file 
+	 * @param category
+	 * 	
+	 */
 	public InputStream getCategoryAudio(String category)
 	{
 		Voice v = new Voice("pt-BR_IsabelaVoice","Brazilian Portuguese","Female");
@@ -44,7 +54,12 @@ public class AudioService {
 		return in;
 	}
 
-
+	/**
+	 * Method recognizes audio and outputs the answer
+	 * 
+	 * @param file
+	 * 	
+	 */
 	public Answer getResponseText(File file) {
 		//File audio = new File("src/test/resources/speech_to_text/sample1.wav");
 		RecognizeOptions re = new RecognizeOptions();
@@ -85,7 +100,12 @@ public class AudioService {
 		return Answer.NA;
 	}
 
-
+	/**
+	 * Method that fetches a document and synthesizes an audio file
+	 * 
+	 * @param document
+	 * 	
+	 */
 	public InputStream fetchDocument(Document doc) {
 		Voice v = new Voice("pt-BR_IsabelaVoice","Brazilian Portuguese","Female");
 		InputStream in = wSer.getTextToSpeech().synthesize(doc.getContent(),v , HttpMediaType.AUDIO_FLAC);
