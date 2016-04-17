@@ -42,7 +42,7 @@ public class AudioService {
 	}
 
 
-	public String getResponseText(File file) {
+	public Answer getResponseText(File file) {
 		//File audio = new File("src/test/resources/speech_to_text/sample1.wav");
 		RecognizeOptions re = new RecognizeOptions();
 		re.model("pt-BR_BroadbandModel");
@@ -51,7 +51,16 @@ public class AudioService {
 	    SpeechResults transcript = wSer.getSpeechToText().recognize(file,re);
 
 	    
-		return transcript.toString();
+	    for(String st : transcript.toString().split(" "))
+	    {
+	    	if(st.toLowerCase().trim().equals("não") || st.toLowerCase().trim().equals("nao") )
+	    		return Answer.NAO;
+	    	if(st.toLowerCase().trim().equals("sim") )
+	    		return Answer.SIM;
+	    	
+	    }
+	   
+		return Answer.NA;
 	}
 	
 }
