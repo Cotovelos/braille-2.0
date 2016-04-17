@@ -6,7 +6,7 @@ Categoria: **App**
 
 Público-alvo: **Deficientes visual**
 
-Proposta de valor única: **Promove dependencia e acesso a informação do ambiente ao deficiente visual no cotidiano**
+Proposta de valor única: **Promove independência e acesso a informação do ambiente ao deficiente visual no cotidiano**
 
 Desafio: 
 
